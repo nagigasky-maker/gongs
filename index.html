@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B0A08">
+<title>GONGS Co., Ltd. — Design with 6 Senses</title>
+<meta name="description" content="GONGS Co., Ltd. — Yokohama based interior & architecture design firm. Design with 6 senses. No Standard to Higher Standard.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@200;300;400;500&family=Noto+Serif+JP:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0B0A08;
+  --bg2: #100E0B;
+  --fg: #EDE8DF;
+  --gold: #C4A97A;
+  --gold-d: #8A7050;
+  --gold-l: #D9C5A0;
+  --dark: #161410;
+  --mid: #1E1C18;
+  --border: rgba(196,169,122,0.18);
+  --border2: rgba(237,232,223,0.07);
+  --red: #8B2020;
+  --stripe: #635BFF;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+::selection { background:var(--gold); color:var(--bg); }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* タッチデバイスではカーソルカスタマイズしない */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  a, button, .wi, .pc, .ig-post, .hc, .p-tag, .ct-row { cursor: none; }
+}
+
+img { max-width:100%; height:auto; display:block; }
+
+/* ═══ CURSOR (PC only) ═══ */
+#cur, #cur-ring { display:none; }
+@media (hover: hover) and (pointer: fine) {
+  #cur { display:block; position:fixed; width:6px; height:6px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform .1s, background .2s; }
+  #cur-ring { display:block; position:fixed; width:30px; height:30px; border:1px solid rgba(196,169,122,.35); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:transform .15s ease, border-color .2s, width .2s, height .2s; }
+  #cur-ring.hv { transform:translate(-50%,-50%) scale(2); border-color:var(--gold); }
+}
+
+/* ═══ LOADER ═══ */
+#loader {
+  position:fixed; inset:0; z-index:10000; background:var(--bg);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:32px;
+  transition:opacity .8s ease, visibility .8s;
+  padding-top:var(--safe-top);
+}
+#loader.done { opacity:0; visibility:hidden; }
+.loader-mark {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(36px, 8vw, 48px); font-weight:300;
+  letter-spacing:.4em; color:var(--gold); text-transform:uppercase;
+}
+.loader-bar {
+  width:min(200px, 60vw); height:1px; background:rgba(196,169,122,.15); position:relative; overflow:hidden;
+}
+.loader-bar::after {
+  content:''; position:absolute; left:0; top:0; height:100%; width:0;
+  background:var(--gold); animation:load 1.6s ease-out forwards;
+}
+@keyframes load { to { width:100%; } }
+.loader-num {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.3em; color:var(--gold-d);
+  text-align:center; padding:0 24px;
+}
+
+/* ═══ NAV ═══ */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 32px; padding-top:calc(20px + var(--safe-top));
+  transition:background .4s ease, padding .4s ease, border-color .4s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled {
+  padding:14px 32px; padding-top:calc(14px + var(--safe-top));
+  background:rgba(11,10,8,.88);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo {
+  font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:500;
+  letter-spacing:.4em; text-transform:uppercase; color:var(--fg); text-decoration:none;
+  display:flex; align-items:center; gap:12px;
+}
+.nav-logo::before {
+  content:''; width:20px; height:1px; background:var(--gold);
+  transition:width .3s;
+}
+.nav-logo:hover::before { width:32px; }
+.nav-links { display:flex; gap:32px; list-style:none; align-items:center; }
+.nav-links a {
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--fg); text-decoration:none; opacity:.55; transition:opacity .3s;
+  position:relative; padding:6px 0;
+}
+.nav-links a::after {
+  content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+  background:var(--gold); transition:width .35s ease;
+}
+.nav-links a:hover { opacity:1; }
+.nav-links a:hover::after { width:100%; }
+.nav-cta {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.22em; text-transform:uppercase;
+  border:1px solid var(--gold); color:var(--gold); padding:11px 22px; text-decoration:none;
+  transition:all .3s; background:transparent;
+}
+.nav-cta:hover, .nav-cta:active { background:var(--gold); color:var(--bg); }
+
+/* MOBILE BURGER */
+.burger { display:none; width:32px; height:32px; flex-direction:column; justify-content:center; gap:5px; background:transparent; border:none; padding:0; }
+.burger span {
+  display:block; width:22px; height:1px; background:var(--fg); margin:0 auto;
+  transition:transform .35s, opacity .25s;
+}
+.burger.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+.burger.open span:nth-child(2) { opacity:0; }
+.burger.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+
+/* MOBILE MENU */
+.mobile-menu {
+  position:fixed; inset:0; z-index:999;
+  background:var(--bg); padding-top:calc(80px + var(--safe-top));
+  transform:translateX(100%); transition:transform .5s cubic-bezier(.7,0,.2,1);
+  display:flex; flex-direction:column;
+}
+.mobile-menu.open { transform:translateX(0); }
+.mobile-menu ul { list-style:none; padding:24px 32px; flex:1; }
+.mobile-menu li { border-bottom:1px solid var(--border); }
+.mobile-menu a {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:24px 0; font-family:'Cormorant Garamond',serif; font-size:28px;
+  color:var(--fg); text-decoration:none; transition:color .3s, padding .3s;
+}
+.mobile-menu a:hover, .mobile-menu a:active { color:var(--gold); padding-left:8px; }
+.mobile-menu a span {
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.25em; color:var(--gold); opacity:.6;
+}
+.mobile-menu-foot {
+  padding:32px; border-top:1px solid var(--border);
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.25em; color:var(--gold-d); text-align:center;
+}
+
+/* ═══ HERO ═══ */
+.hero {
+  height:100vh; min-height:680px; position:relative; overflow:hidden;
+  display:grid; grid-template-columns:1fr 1.1fr;
+}
+
+.hero-left {
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:0 52px 96px; position:relative; z-index:3;
+  background:var(--bg);
+}
+
+.hero-vol {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.4em;
+  color:var(--gold); margin-bottom:38px;
+  display:flex; align-items:center; gap:16px;
+}
+.hero-vol::before { content:''; width:32px; height:1px; background:var(--gold); }
+
+.hero-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(56px,8vw,128px);
+  font-weight:300; line-height:.86; letter-spacing:-.03em;
+  margin-bottom:48px;
+  color:var(--fg);
+}
+.hero-title em {
+  font-style:italic; color:var(--gold);
+  position:relative; display:inline-block;
+}
+.hero-title em::after {
+  content:''; position:absolute; left:0; bottom:8px; width:100%; height:1px;
+  background:var(--gold); transform:scaleX(0); transform-origin:left;
+  animation:underline 1.2s ease-out 1.4s forwards;
+}
+@keyframes underline { to { transform:scaleX(1); } }
+
+.hero-phi {
+  font-size:13px; line-height:2.1; color:rgba(237,232,223,.55);
+  max-width:380px; margin-bottom:56px;
+  font-family:'Noto Serif JP',serif; font-weight:200;
+}
+
+.hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
+.btn-primary {
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  background:var(--fg); color:var(--bg); padding:16px 30px; text-decoration:none;
+  transition:all .35s ease; display:inline-flex; align-items:center; gap:14px;
+  position:relative; overflow:hidden; border:none;
+}
+.btn-primary span { position:relative; z-index:2; transition:color .35s; }
+.btn-primary::before {
+  content:''; position:absolute; inset:0; background:var(--gold);
+  transform:translateX(-101%); transition:transform .4s cubic-bezier(.7,0,.2,1);
+}
+.btn-primary:hover::before, .btn-primary:active::before { transform:translateX(0); }
+.btn-primary::after { content:'→'; position:relative; z-index:2; }
+
+.btn-ghost {
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  border:1px solid var(--border); color:var(--fg); padding:15px 30px; text-decoration:none;
+  transition:all .35s; background:transparent;
+}
+.btn-ghost:hover, .btn-ghost:active { border-color:var(--gold); color:var(--gold); }
+
+/* HERO RIGHT - Magazine mosaic */
+.hero-right {
+  position:relative; overflow:hidden;
+  display:grid; grid-template-columns:1fr 1fr;
+  grid-template-rows:repeat(6, 1fr);
+  gap:3px; padding:60px 0 0;
+  background:var(--bg);
+}
+.hc {
+  position:relative; overflow:hidden; background:var(--dark);
+}
+.hc:nth-child(1) { grid-column:1; grid-row:1/4; }
+.hc:nth-child(2) { grid-column:2; grid-row:1/3; }
+.hc:nth-child(3) { grid-column:2; grid-row:3/5; }
+.hc:nth-child(4) { grid-column:1; grid-row:4/7; }
+.hc:nth-child(5) { grid-column:2; grid-row:5/7; }
+
+.hc img {
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity:.75; filter:saturate(.85) contrast(1.05);
+  transition:opacity .8s ease, transform 1.2s ease, filter .8s;
+}
+.hc:hover img { opacity:.95; transform:scale(1.06); filter:saturate(1) contrast(1.1); }
+.hc-tag {
+  position:absolute; bottom:14px; left:16px;
+  font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.25em;
+  color:rgba(237,232,223,.85); z-index:2; text-transform:uppercase;
+  padding:5px 9px; background:rgba(11,10,8,.5); backdrop-filter:blur(8px);
+}
+.hc-num {
+  position:absolute; top:14px; right:16px;
+  font-family:'Cormorant Garamond',serif; font-size:14px;
+  color:var(--gold); z-index:2; opacity:.7; font-style:italic;
+}
+
+.hero-scroll {
+  position:absolute; bottom:32px; left:50%; transform:translateX(-50%); z-index:5;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+  font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.35em; color:var(--gold);
+}
+.scroll-bar { width:1px; height:48px; background:rgba(196,169,122,.3); position:relative; overflow:hidden; }
+.scroll-bar::after { content:''; position:absolute; top:0; left:0; width:100%; height:30%; background:var(--gold); animation:scrollDot 2s ease-in-out infinite; }
+@keyframes scrollDot { 0%{top:-30%} 100%{top:100%} }
+
+.hero-corner-tl {
+  position:absolute; top:90px; left:52px; z-index:3;
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.3em; color:var(--gold-d);
+}
+.hero-corner-br {
+  position:absolute; bottom:48px; right:52px; z-index:3;
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px;
+  color:var(--gold); opacity:.7;
+}
+
+/* ═══ MARQUEE ═══ */
+.marquee-wrap { background:var(--gold); padding:14px 0; overflow:hidden; position:relative; z-index:5; }
+.marquee-track { display:flex; animation:mq 28s linear infinite; white-space:nowrap; }
+.mq-item {
+  font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--bg); padding:0 32px; font-weight:700;
+}
+.mq-sep { color:rgba(11,10,8,.4); padding:0 4px; font-size:14px; }
+@keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ═══ PHILOSOPHY ═══ */
+.phi-section {
+  display:grid; grid-template-columns:1.2fr 1fr;
+  border-bottom:1px solid var(--border);
+  background:var(--bg);
+}
+.phi-left {
+  padding:120px 64px; border-right:1px solid var(--border);
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative;
+}
+.phi-left::before {
+  content:'06'; position:absolute; top:80px; right:64px;
+  font-family:'Cormorant Garamond',serif; font-size:120px; line-height:1;
+  color:var(--gold); opacity:.08; font-weight:300;
+}
+.section-eyebrow {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.4em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:32px;
+  display:flex; align-items:center; gap:14px;
+}
+.section-eyebrow::before { content:''; width:24px; height:1px; background:var(--gold); }
+
+.phi-quote {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,4.5vw,64px); font-weight:300; font-style:italic;
+  line-height:1.15; letter-spacing:-.015em; margin-bottom:48px;
+}
+.phi-quote span { color:var(--gold); }
+.phi-quote .accent-mark { font-style:normal; font-size:.6em; color:var(--gold); vertical-align:super; letter-spacing:0; }
+.phi-body {
+  font-family:'Noto Serif JP',serif; font-weight:200;
+  font-size:13px; line-height:2.2; opacity:.65;
+  max-width:480px;
+}
+.phi-body p + p { margin-top:1.2em; }
+
+.phi-right { display:grid; grid-template-rows:repeat(3,1fr); }
+.phi-stat {
+  padding:48px 56px; border-bottom:1px solid var(--border);
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; transition:background .4s;
+}
+.phi-stat:hover { background:var(--bg2); }
+.phi-stat:last-child { border-bottom:none; }
+.phi-stat::before {
+  content:''; position:absolute; top:48px; right:56px; width:6px; height:6px;
+  border:1px solid var(--gold); transform:rotate(45deg);
+}
+.stat-n {
+  font-family:'Cormorant Garamond',serif; font-size:80px; font-weight:300;
+  color:var(--gold); line-height:1; margin-bottom:8px; letter-spacing:-.02em;
+}
+.stat-n sup { font-size:32px; vertical-align:super; opacity:.7; }
+.stat-l {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.3em;
+  text-transform:uppercase; opacity:.5;
+}
+.stat-d {
+  font-size:11px; opacity:.4; margin-top:8px;
+  font-family:'Noto Serif JP',serif; font-weight:200;
+}
+
+/* ═══ WORKS ═══ */
+.works-section { border-bottom:1px solid var(--border); background:var(--bg); }
+.section-head {
+  padding:96px 52px 64px;
+  display:flex; justify-content:space-between; align-items:flex-end;
+  border-bottom:1px solid var(--border); position:relative;
+}
+.section-head::after {
+  content:''; position:absolute; bottom:-1px; left:0; width:80px; height:2px; background:var(--gold);
+}
+.sh-left { flex:1; }
+.sh-left .section-eyebrow { margin-bottom:20px; }
+.sh-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,6vw,80px); font-weight:300; letter-spacing:-.025em; line-height:1;
+}
+.sh-title em { font-style:italic; color:var(--gold); }
+.sh-meta { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+.sh-num {
+  font-family:'Cormorant Garamond',serif; font-size:96px;
+  font-weight:300; color:var(--gold); line-height:1; letter-spacing:-.04em; opacity:.9;
+}
+.sh-sub {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.3em;
+  color:var(--gold); opacity:.6; text-transform:uppercase;
+}
+
+.works-grid {
+  display:grid;
+  grid-template-areas:
+    "w1 w1 w1 w2 w2"
+    "w3 w4 w4 w5 w5"
+    "w6 w6 w7 w8 w8";
+  grid-template-columns:repeat(5,1fr);
+  gap:3px;
+  background:var(--border2);
+}
+.wi { position:relative; overflow:hidden; background:var(--dark); }
+.wi:nth-child(1) { grid-area:w1; aspect-ratio:16/9; }
+.wi:nth-child(2) { grid-area:w2; aspect-ratio:auto; }
+.wi:nth-child(3) { grid-area:w3; aspect-ratio:3/4; }
+.wi:nth-child(4) { grid-area:w4; aspect-ratio:auto; }
+.wi:nth-child(5) { grid-area:w5; aspect-ratio:auto; }
+.wi:nth-child(6) { grid-area:w6; aspect-ratio:auto; }
+.wi:nth-child(7) { grid-area:w7; aspect-ratio:3/4; }
+.wi:nth-child(8) { grid-area:w8; aspect-ratio:auto; }
+
+.wi img {
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity:.7; filter:saturate(.85) contrast(1.05);
+  transition:opacity .6s, transform 1.2s cubic-bezier(.25,.46,.45,.94), filter .6s;
+}
+.wi:hover img, .wi:active img { opacity:.95; transform:scale(1.08); filter:saturate(1) contrast(1.08); }
+
+.wi-num {
+  position:absolute; top:18px; left:20px; z-index:2;
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px;
+  color:var(--gold); opacity:.7;
+}
+
+.wi-strip {
+  position:absolute; bottom:0; left:0; right:0; z-index:2;
+  padding:56px 24px 22px;
+  background:linear-gradient(transparent,rgba(11,10,8,.92));
+  display:flex; justify-content:space-between; align-items:flex-end;
+  transition:transform .5s ease;
+}
+.wi:hover .wi-strip, .wi:active .wi-strip { transform:translateY(-4px); }
+.wi-name {
+  font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400;
+  letter-spacing:-.005em;
+}
+.wi-name-sub {
+  font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.25em;
+  color:var(--gold); opacity:.7; text-transform:uppercase; margin-top:4px;
+}
+.wi-arrow {
+  font-family:'Space Mono',monospace; font-size:10px; color:var(--gold);
+  width:36px; height:36px; border:1px solid var(--gold); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .3s; opacity:.6; flex-shrink:0;
+}
+.wi:hover .wi-arrow { opacity:1; background:var(--gold); color:var(--bg); transform:rotate(-45deg); }
+
+.works-view-all {
+  padding:48px 52px; border-top:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center; gap:32px;
+}
+.wva-text {
+  font-family:'Noto Serif JP',serif; font-weight:200; font-size:13px; opacity:.5; max-width:600px;
+  line-height:1.9;
+}
+
+/* ═══ PROFILE ═══ */
+.profile-section {
+  display:grid; grid-template-columns:5fr 7fr;
+  border-bottom:1px solid var(--border);
+  min-height:80vh; background:var(--bg);
+}
+.profile-left { position:relative; overflow:hidden; background:var(--dark); }
+.profile-left img {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; opacity:.55; filter:sepia(.2) contrast(1.15) saturate(.9);
+}
+.profile-left-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(110deg,rgba(11,10,8,0) 50%,var(--bg) 100%);
+}
+.profile-left-frame { position:absolute; inset:24px; border:1px solid rgba(196,169,122,.2); pointer-events:none; }
+.profile-left-quote {
+  position:absolute; bottom:48px; left:48px; right:48px; z-index:3;
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px;
+  color:var(--gold); line-height:1.7; opacity:.9;
+}
+.profile-left-quote::before {
+  content:'"'; display:block; font-size:48px; line-height:.5; margin-bottom:12px;
+}
+
+.profile-right {
+  padding:120px 64px 96px 64px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.profile-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,4.5vw,64px); font-weight:300; letter-spacing:-.02em;
+  margin-bottom:6px; line-height:1;
+}
+.profile-name-ja {
+  font-family:'Noto Serif JP',serif; font-size:13px; font-weight:200;
+  letter-spacing:.3em; color:var(--gold); margin-bottom:48px;
+}
+.profile-body {
+  font-family:'Noto Serif JP',serif; font-weight:200;
+  font-size:13px; line-height:2.2; opacity:.65; margin-bottom:48px;
+  max-width:600px;
+}
+.profile-body p + p { margin-top:1.4em; }
+.profile-tags { display:flex; flex-wrap:wrap; gap:8px; }
+.p-tag {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.2em;
+  border:1px solid var(--border); padding:8px 14px; color:var(--fg); opacity:.6;
+  transition:all .3s;
+}
+.p-tag:hover { border-color:var(--gold); color:var(--gold); opacity:1; }
+
+/* ═══ INSTAGRAM ═══ */
+.insta-section { border-bottom:1px solid var(--border); background:var(--bg); }
+.insta-header {
+  padding:96px 52px 56px;
+  display:flex; justify-content:space-between; align-items:flex-end;
+  border-bottom:1px solid var(--border); position:relative;
+}
+.insta-header::after {
+  content:''; position:absolute; bottom:-1px; left:0; width:80px; height:2px; background:var(--gold);
+}
+.insta-meta { display:flex; flex-direction:column; align-items:flex-end; gap:14px; }
+.insta-at { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.25em; color:var(--gold); }
+.insta-desc {
+  font-size:11px; opacity:.45; max-width:280px; text-align:right; line-height:1.7;
+  font-family:'Noto Serif JP',serif; font-weight:200;
+}
+.insta-follow-btn {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.22em;
+  border:1px solid var(--border); color:var(--fg); padding:12px 22px;
+  text-decoration:none; transition:all .35s; display:flex; align-items:center; gap:10px;
+  text-transform:uppercase;
+}
+.insta-follow-btn::before {
+  content:''; display:inline-block; width:14px; height:14px;
+  background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  border-radius:4px;
+}
+.insta-follow-btn:hover, .insta-follow-btn:active { border-color:var(--gold); color:var(--gold); }
+
+.insta-grid {
+  display:grid; grid-template-columns:repeat(6,1fr); gap:3px;
+  background:var(--border2);
+}
+.ig-post { aspect-ratio:1; position:relative; overflow:hidden; background:var(--dark); }
+.ig-post img {
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity:.7; transition:opacity .5s, transform 1s ease;
+}
+.ig-post:hover img, .ig-post:active img { opacity:.95; transform:scale(1.1); }
+.ig-overlay {
+  position:absolute; inset:0; background:rgba(11,10,8,.65);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  opacity:0; transition:opacity .35s; gap:8px;
+}
+.ig-post:hover .ig-overlay { opacity:1; }
+.ig-heart { font-size:22px; color:var(--gold); }
+.ig-likes { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.2em; color:var(--fg); }
+
+.insta-live {
+  padding:18px 52px;
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  border-top:1px solid var(--border); background:var(--bg2);
+}
+.live-dot { width:7px; height:7px; background:#E8110A; border-radius:50%; animation:livepulse 1.5s infinite; box-shadow:0 0 12px #E8110A; flex-shrink:0; }
+@keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.7)} }
+.live-txt {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.3em; color:var(--fg); opacity:.55;
+  text-transform:uppercase;
+}
+.live-divider { color:var(--gold); opacity:.4; font-size:10px; }
+.live-txt-r {
+  margin-left:auto;
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.25em; color:var(--gold); opacity:.7;
+}
+
+/* ═══ SHOP ═══ */
+.shop-section { border-bottom:1px solid var(--border); padding:0; background:var(--bg); }
+.shop-header {
+  padding:96px 52px 56px;
+  display:flex; justify-content:space-between; align-items:flex-end;
+  border-bottom:1px solid var(--border); position:relative;
+}
+.shop-header::after {
+  content:''; position:absolute; bottom:-1px; left:0; width:80px; height:2px; background:var(--gold);
+}
+.stripe-badge {
+  display:flex; align-items:center; gap:10px;
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.25em;
+  border:1px solid var(--border); padding:11px 18px; color:var(--fg); opacity:.6;
+  text-transform:uppercase;
+}
+.s-dot { width:6px; height:6px; background:var(--stripe); border-radius:50%; animation:sblink 2s infinite; }
+@keyframes sblink { 0%,100%{opacity:1; box-shadow:0 0 8px var(--stripe);} 50%{opacity:.3} }
+
+.products-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:3px;
+  background:var(--border2);
+}
+.pc { background:var(--dark); overflow:hidden; position:relative; }
+.pc-img { aspect-ratio:3/4; position:relative; overflow:hidden; }
+.pc-img img {
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity:.7; transition:opacity .5s, transform .9s ease;
+}
+.pc:hover .pc-img img, .pc:active .pc-img img { opacity:.85; transform:scale(1.04); }
+
+.pc-tag-new {
+  position:absolute; top:18px; left:18px; z-index:3;
+  font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.25em;
+  background:var(--gold); color:var(--bg); padding:5px 10px; text-transform:uppercase;
+}
+
+.pc-add {
+  position:absolute; inset:0; background:rgba(11,10,8,.72);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transition:opacity .35s;
+}
+.pc:hover .pc-add { opacity:1; }
+.add-btn {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.22em;
+  padding:14px 28px; background:var(--fg); color:var(--bg);
+  border:none; transition:all .3s; display:inline-flex; align-items:center; gap:10px;
+}
+.add-btn:hover, .add-btn:active { background:var(--gold); }
+.add-btn::after { content:'→'; }
+
+.pc-info { padding:24px 26px; border-top:1px solid var(--border); }
+.pc-cat {
+  font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.3em;
+  color:var(--gold); margin-bottom:10px; text-transform:uppercase;
+}
+.pc-name {
+  font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400; margin-bottom:18px;
+  letter-spacing:-.005em;
+}
+.pc-foot { display:flex; justify-content:space-between; align-items:center; }
+.pc-price { font-family:'Space Mono',monospace; font-size:14px; font-weight:700; }
+.pc-stock {
+  font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.2em;
+  opacity:.4; text-transform:uppercase;
+}
+.pc-stock.limited { color:#E8110A; opacity:.7; }
+
+/* MOBILE PRODUCT BUTTON */
+.pc-mobile-btn {
+  display:none;
+  width:100%; padding:14px;
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.22em;
+  background:transparent; color:var(--gold); border:none;
+  border-top:1px solid var(--border);
+  text-transform:uppercase;
+}
+
+.shop-trust {
+  padding:24px 52px; background:var(--bg2);
+  display:flex; justify-content:space-around; align-items:center;
+  border-top:1px solid var(--border); flex-wrap:wrap; gap:20px;
+}
+.trust-item {
+  display:flex; align-items:center; gap:10px;
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.2em;
+  color:var(--fg); opacity:.5; text-transform:uppercase;
+}
+.trust-icon { color:var(--gold); font-size:14px; }
+
+/* ═══ EDITORIAL ═══ */
+.editorial {
+  padding:120px 52px;
+  display:grid; grid-template-columns:1fr 2fr 1fr;
+  gap:64px; align-items:start;
+  border-bottom:1px solid var(--border);
+  background:var(--bg2); position:relative;
+}
+.editorial::before {
+  content:'GONGS'; position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Cormorant Garamond',serif; font-size:clamp(80px,16vw,200px);
+  font-weight:300; color:transparent; -webkit-text-stroke:1px rgba(196,169,122,.04);
+  pointer-events:none; user-select:none; white-space:nowrap;
+}
+.ed-side {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.3em;
+  color:var(--gold); opacity:.6; text-transform:uppercase;
+  position:sticky; top:120px;
+}
+.ed-side.right { text-align:right; }
+.ed-main { position:relative; z-index:2; }
+.ed-eyebrow {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.4em;
+  color:var(--gold); margin-bottom:32px; text-transform:uppercase;
+}
+.ed-title {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(28px,4vw,56px);
+  font-weight:300; line-height:1.15; letter-spacing:-.02em; margin-bottom:40px;
+}
+.ed-title em { font-style:italic; color:var(--gold); }
+.ed-body {
+  font-family:'Noto Serif JP',serif; font-weight:200;
+  font-size:13px; line-height:2.2; opacity:.7; margin-bottom:24px;
+}
+.ed-body p + p { margin-top:1.2em; }
+.ed-pullquote {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:clamp(18px,2.5vw,24px); line-height:1.5; color:var(--gold);
+  border-left:2px solid var(--gold); padding:8px 0 8px 24px;
+  margin:32px 0;
+}
+
+/* ═══ CONTACT ═══ */
+.contact-section {
+  min-height:80vh; position:relative; overflow:hidden;
+  display:flex; align-items:center;
+  border-bottom:1px solid var(--border); background:var(--bg);
+}
+.contact-bg-word {
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(80px,18vw,260px); font-weight:300;
+  color:transparent; -webkit-text-stroke:1px rgba(196,169,122,.06);
+  white-space:nowrap; pointer-events:none; user-select:none; line-height:1;
+}
+.contact-inner {
+  position:relative; z-index:2;
+  padding:96px 52px; max-width:760px; width:100%;
+}
+.contact-eyebrow { margin-bottom:32px; }
+.contact-hl {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(48px,8vw,108px); font-weight:300; line-height:.92;
+  letter-spacing:-.025em; margin-bottom:56px;
+}
+.contact-hl em { font-style:italic; color:var(--gold); }
+.contact-links { display:flex; flex-direction:column; gap:0; }
+.contact-link {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(18px,2.5vw,22px); font-weight:300;
+  color:var(--fg); text-decoration:none;
+  border-bottom:1px solid var(--border); padding:24px 0;
+  transition:all .35s; display:flex; justify-content:space-between; align-items:center;
+  gap:16px;
+}
+.contact-link:hover, .contact-link:active { color:var(--gold); padding-left:16px; }
+.contact-link-text {
+  font-family:'Cormorant Garamond',serif; flex:1;
+  word-break:break-all;
+}
+.contact-link-meta {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.3em; opacity:.45;
+  color:var(--gold); text-transform:uppercase; flex-shrink:0;
+}
+.contact-arrow { display:inline-block; transition:transform .35s; }
+.contact-link:hover .contact-arrow { transform:translateX(8px); }
+
+/* ═══ COMPANY ═══ */
+.company-section { padding:96px 52px; border-bottom:1px solid var(--border); background:var(--bg); }
+.company-section .sh-title { margin-top:20px; margin-bottom:64px; }
+.company-table { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border2); }
+.ct-row {
+  display:grid; grid-template-columns:200px 1fr;
+  padding:24px 28px; background:var(--bg);
+  transition:background .3s, padding .3s;
+}
+.ct-row:hover { background:var(--bg2); padding-left:36px; }
+.ct-key {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.25em;
+  text-transform:uppercase; color:var(--gold); opacity:.7; align-self:center;
+}
+.ct-val { font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:300; opacity:.75; }
+
+/* ═══ FOOTER ═══ */
+footer { padding:64px 52px 32px; padding-bottom:calc(32px + var(--safe-bot)); background:var(--bg2); }
+.footer-top {
+  display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:48px; padding-bottom:48px; border-bottom:1px solid var(--border);
+}
+.footer-brand .footer-logo {
+  font-family:'Cormorant Garamond',serif; font-size:24px;
+  letter-spacing:.4em; text-transform:uppercase; margin-bottom:20px;
+}
+.footer-tagline {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px;
+  color:var(--gold); margin-bottom:24px;
+}
+.footer-addr {
+  font-size:11px; opacity:.5; line-height:1.9; font-family:'Noto Serif JP',serif; font-weight:200;
+}
+.footer-col h4 {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.3em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:20px; font-weight:400;
+}
+.footer-col ul { list-style:none; }
+.footer-col li { margin-bottom:10px; }
+.footer-col a {
+  font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--fg);
+  text-decoration:none; opacity:.55; transition:opacity .3s;
+}
+.footer-col a:hover, .footer-col a:active { opacity:1; color:var(--gold); }
+.footer-bot { padding-top:32px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+.footer-copy, .footer-credit { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.2em; opacity:.3; }
+.footer-credit em { color:var(--gold); font-style:normal; }
+
+/* ═══ MODAL ═══ */
+.modal-bg {
+  position:fixed; inset:0; background:rgba(11,10,8,.94); z-index:7000;
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .4s;
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  padding:24px;
+}
+.modal-bg.open { opacity:1; pointer-events:all; }
+.modal-box {
+  background:var(--mid); border:1px solid var(--border);
+  width:min(540px,100%); max-height:calc(100vh - 48px); overflow-y:auto;
+  padding:40px 32px; transform:translateY(28px);
+  transition:transform .5s cubic-bezier(.25,.46,.45,.94); position:relative;
+  -webkit-overflow-scrolling:touch;
+}
+.modal-bg.open .modal-box { transform:translateY(0); }
+.modal-eyebrow { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.3em; color:var(--gold); margin-bottom:18px; }
+.modal-title {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(28px,5vw,38px); font-weight:300;
+  margin-bottom:24px; letter-spacing:-.015em; line-height:1.1; padding-right:48px;
+}
+.modal-desc {
+  font-size:13px; line-height:2; opacity:.65; margin-bottom:36px;
+  font-family:'Noto Serif JP',serif; font-weight:200;
+}
+.modal-price { font-family:'Space Mono',monospace; font-size:24px; margin-bottom:36px; font-weight:700; }
+.modal-stripe-btn {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  width:100%; padding:18px;
+  background:var(--stripe); color:#fff;
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.25em;
+  border:none; margin-bottom:12px; transition:all .3s; text-transform:uppercase;
+}
+.modal-stripe-btn:hover, .modal-stripe-btn:active { background:#5046E5; transform:translateY(-2px); }
+.modal-cart-btn {
+  display:block; width:100%; padding:18px;
+  background:transparent; color:var(--fg); border:1px solid var(--border);
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.25em;
+  margin-bottom:24px; transition:all .3s; text-transform:uppercase;
+}
+.modal-cart-btn:hover, .modal-cart-btn:active { border-color:var(--gold); color:var(--gold); }
+.modal-close-x {
+  position:absolute; top:20px; right:20px;
+  font-family:'Space Mono',monospace; font-size:14px; opacity:.5;
+  width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--border); background:transparent; color:var(--fg);
+  transition:all .25s;
+}
+.modal-close-x:hover, .modal-close-x:active { opacity:1; border-color:var(--gold); color:var(--gold); transform:rotate(90deg); }
+.stripe-secure {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.2em; opacity:.35;
+  text-transform:uppercase; flex-wrap:wrap;
+}
+.stripe-icon {
+  display:inline-block; width:32px; height:14px;
+  background:linear-gradient(90deg,var(--stripe),#8B5CF6); border-radius:3px;
+}
+
+/* ═══ CART FLOAT ═══ */
+.cart-float {
+  position:fixed; bottom:36px; right:32px;
+  bottom:calc(36px + var(--safe-bot));
+  z-index:500;
+  background:var(--fg); color:var(--bg);
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.22em;
+  padding:14px 20px; border:none;
+  display:flex; align-items:center; gap:14px; transition:all .3s;
+  text-transform:uppercase; box-shadow:0 8px 32px rgba(11,10,8,.5);
+}
+.cart-float:hover, .cart-float:active { background:var(--gold); transform:translateY(-3px); }
+.cart-badge {
+  background:var(--red); color:#fff; min-width:20px; height:20px;
+  border-radius:10px; display:flex; align-items:center; justify-content:center;
+  font-size:9px; font-weight:700; padding:0 6px; transition:transform .25s;
+}
+
+/* ═══ NOISE ═══ */
+body::after {
+  content:''; position:fixed; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:9000; opacity:.6;
+}
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal { opacity:0; transform:translateY(40px); transition:opacity .9s ease, transform .9s ease; }
+.reveal.in { opacity:1; transform:translateY(0); }
+
+.fade-seq > * { opacity:0; transform:translateY(32px); animation:fadeUp 1s cubic-bezier(.25,.46,.45,.94) forwards; }
+.fade-seq > *:nth-child(1) { animation-delay:1.6s; }
+.fade-seq > *:nth-child(2) { animation-delay:1.78s; }
+.fade-seq > *:nth-child(3) { animation-delay:1.94s; }
+.fade-seq > *:nth-child(4) { animation-delay:2.08s; }
+.fade-seq > *:nth-child(5) { animation-delay:2.2s; }
+@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+
+.hero-right .hc { opacity:0; animation:fadeIn 1.2s ease forwards; }
+.hero-right .hc:nth-child(1) { animation-delay:1.4s; }
+.hero-right .hc:nth-child(2) { animation-delay:1.55s; }
+.hero-right .hc:nth-child(3) { animation-delay:1.7s; }
+.hero-right .hc:nth-child(4) { animation-delay:1.85s; }
+.hero-right .hc:nth-child(5) { animation-delay:2s; }
+@keyframes fadeIn { to { opacity:1; } }
+
+/* ════════════════════════════════════════ */
+/* ═══ TABLET ═══ */
+/* ════════════════════════════════════════ */
+@media (max-width:1024px) {
+  .editorial { grid-template-columns:1fr; gap:24px; padding:80px 32px; }
+  .ed-side { position:static; }
+  .footer-top { grid-template-columns:1fr 1fr; gap:32px; }
+}
+
+/* ════════════════════════════════════════ */
+/* ═══ MOBILE ═══ */
+/* ════════════════════════════════════════ */
+@media (max-width:768px) {
+  /* NAV */
+  nav { padding:16px 20px; padding-top:calc(16px + var(--safe-top)); }
+  nav.scrolled { padding:12px 20px; padding-top:calc(12px + var(--safe-top)); }
+  .nav-logo { font-size:17px; letter-spacing:.35em; }
+  .nav-logo::before { width:14px; }
+  .nav-links { display:none; }
+  .nav-cta { display:none; }
+  .burger { display:flex; }
+
+  /* HERO */
+  .hero {
+    grid-template-columns:1fr;
+    height:auto; min-height:auto;
+    grid-template-rows:auto auto;
+  }
+  .hero-corner-tl, .hero-corner-br { display:none; }
+  .hero-scroll { display:none; }
+  .hero-left {
+    padding:120px 24px 48px;
+    order:1;
+  }
+  .hero-vol { font-size:8px; margin-bottom:24px; letter-spacing:.3em; }
+  .hero-vol::before { width:18px; }
+  .hero-title {
+    font-size:64px; line-height:.88;
+    margin-bottom:32px;
+  }
+  .hero-phi { font-size:12px; margin-bottom:36px; line-height:2; }
+  .hero-btns { gap:12px; }
+  .btn-primary, .btn-ghost { padding:14px 22px; font-size:9px; flex:1; justify-content:center; }
+  .hero-right {
+    padding:0;
+    order:2;
+    height:60vh; min-height:420px;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr 1fr 1fr;
+    gap:2px;
+  }
+  .hero-right .hc:nth-child(1) { grid-column:1; grid-row:1/3; }
+  .hero-right .hc:nth-child(2) { grid-column:2; grid-row:1; }
+  .hero-right .hc:nth-child(3) { grid-column:2; grid-row:2; }
+  .hero-right .hc:nth-child(4) { grid-column:1; grid-row:3; }
+  .hero-right .hc:nth-child(5) { grid-column:2; grid-row:3; }
+  .hc-tag { font-size:7px; padding:4px 7px; bottom:10px; left:10px; letter-spacing:.2em; }
+  .hc-num { font-size:12px; top:10px; right:10px; }
+
+  /* MARQUEE */
+  .marquee-wrap { padding:11px 0; }
+  .mq-item { font-size:10px; padding:0 22px; letter-spacing:.25em; }
+  .mq-sep { padding:0 2px; }
+
+  /* PHILOSOPHY */
+  .phi-section { grid-template-columns:1fr; }
+  .phi-left {
+    border-right:none; border-bottom:1px solid var(--border);
+    padding:64px 24px;
+  }
+  .phi-left::before { font-size:80px; top:48px; right:24px; }
+  .section-eyebrow { font-size:8px; letter-spacing:.3em; margin-bottom:24px; }
+  .section-eyebrow::before { width:18px; }
+  .phi-quote { font-size:36px; margin-bottom:32px; }
+  .phi-body { font-size:12px; line-height:2; }
+  .phi-right { grid-template-rows:auto; }
+  .phi-stat { padding:36px 24px; }
+  .phi-stat::before { top:36px; right:24px; }
+  .stat-n { font-size:60px; }
+  .stat-n sup { font-size:24px; }
+  .stat-l { font-size:8px; }
+  .stat-d { font-size:10px; }
+
+  /* SECTION HEADERS */
+  .section-head, .insta-header, .shop-header {
+    padding:64px 24px 36px;
+    flex-direction:column; align-items:flex-start; gap:24px;
+  }
+  .sh-title { font-size:42px; }
+  .sh-num { font-size:64px; }
+  .sh-meta { align-items:flex-start; flex-direction:row; gap:14px; align-items:baseline; }
+  .sh-sub { font-size:8px; }
+
+  /* WORKS */
+  .works-grid {
+    grid-template-areas:"w1""w2""w3""w4""w5""w6""w7""w8";
+    grid-template-columns:1fr;
+  }
+  .wi { aspect-ratio:4/3 !important; }
+  .wi-num { font-size:12px; top:14px; left:14px; }
+  .wi-strip { padding:48px 18px 18px; }
+  .wi-name { font-size:18px; }
+  .wi-name-sub { font-size:7px; margin-top:3px; }
+  .wi-arrow { width:32px; height:32px; font-size:9px; }
+  .works-view-all { padding:40px 24px; flex-direction:column; align-items:flex-start; gap:24px; }
+  .wva-text { font-size:12px; }
+  .works-view-all .btn-ghost { width:100%; text-align:center; }
+
+  /* PROFILE */
+  .profile-section { grid-template-columns:1fr; min-height:auto; }
+  .profile-left {
+    aspect-ratio:4/3; min-height:0; height:auto;
+  }
+  .profile-left img { opacity:.4; }
+  .profile-left-overlay { background:linear-gradient(180deg,rgba(11,10,8,0) 60%,var(--bg) 100%); }
+  .profile-left-frame { inset:16px; }
+  .profile-left-quote {
+    bottom:32px; left:24px; right:24px; font-size:12px;
+  }
+  .profile-left-quote::before { font-size:32px; }
+  .profile-right { padding:64px 24px; }
+  .profile-name { font-size:42px; }
+  .profile-name-ja { font-size:11px; margin-bottom:32px; letter-spacing:.25em; }
+  .profile-body { font-size:12px; line-height:2; }
+  .p-tag { font-size:8px; padding:7px 12px; }
+
+  /* EDITORIAL */
+  .editorial { padding:64px 24px; gap:24px; }
+  .editorial::before { font-size:80px; }
+  .ed-side { font-size:8px; opacity:.5; }
+  .ed-title { font-size:30px; margin-bottom:28px; }
+  .ed-body { font-size:12px; line-height:2; }
+  .ed-pullquote { font-size:18px; padding:8px 0 8px 18px; margin:24px 0; }
+
+  /* INSTAGRAM */
+  .insta-grid { grid-template-columns:repeat(3,1fr); gap:2px; }
+  .insta-meta { align-items:flex-start; gap:12px; }
+  .insta-desc { text-align:left; max-width:none; font-size:11px; }
+  .insta-at { font-size:10px; }
+  .insta-follow-btn { font-size:8px; padding:11px 18px; }
+  .insta-live {
+    padding:14px 24px; gap:8px; flex-wrap:wrap;
+  }
+  .live-txt { font-size:8px; letter-spacing:.25em; }
+  .live-txt-r { font-size:8px; width:100%; margin:6px 0 0 0; }
+  .live-divider { display:none; }
+  .ig-heart { font-size:18px; }
+  .ig-likes { font-size:8px; }
+
+  /* SHOP */
+  .products-grid { grid-template-columns:1fr; }
+  .pc-img { aspect-ratio:4/3; }
+  .pc-info { padding:20px 22px; }
+  .pc-name { font-size:20px; margin-bottom:14px; }
+  .pc-cat { font-size:7px; }
+  .pc-price { font-size:13px; }
+
+  /* スマホでは画像タップで自動的に商品詳細を開けるように、別途モバイルボタンを表示 */
+  .pc-mobile-btn { display:block; }
+  .pc-add { display:none; }
+
+  .stripe-badge { font-size:8px; padding:9px 14px; }
+  .shop-trust { padding:24px; flex-direction:column; align-items:flex-start; gap:14px; }
+  .trust-item { font-size:8px; }
+
+  /* CONTACT */
+  .contact-inner { padding:64px 24px; }
+  .contact-bg-word { font-size:80px; }
+  .contact-hl { font-size:54px; margin-bottom:40px; }
+  .contact-link {
+    font-size:16px; padding:20px 0;
+    flex-direction:column; align-items:flex-start; gap:8px;
+  }
+  .contact-link-text { font-size:18px; }
+  .contact-link-meta { font-size:8px; }
+
+  /* COMPANY */
+  .company-section { padding:64px 24px; }
+  .company-section .sh-title { margin-bottom:40px; }
+  .company-table { grid-template-columns:1fr; }
+  .ct-row { grid-template-columns:130px 1fr; padding:18px 22px; }
+  .ct-row:hover { padding-left:30px; }
+  .ct-key { font-size:8px; }
+  .ct-val { font-size:12px; }
+
+  /* FOOTER */
+  footer { padding:48px 24px 24px; padding-bottom:calc(24px + var(--safe-bot)); }
+  .footer-top { grid-template-columns:1fr 1fr; gap:32px; padding-bottom:36px; }
+  .footer-brand { grid-column:1/-1; }
+  .footer-logo { font-size:20px; margin-bottom:16px; }
+  .footer-tagline { font-size:14px; margin-bottom:16px; }
+  .footer-addr { font-size:10px; }
+  .footer-col h4 { font-size:8px; margin-bottom:14px; }
+  .footer-col li { margin-bottom:8px; }
+  .footer-col a { font-size:10px; }
+  .footer-bot { flex-direction:column; gap:12px; padding-top:24px; align-items:flex-start; }
+
+  /* CART */
+  .cart-float {
+    bottom:24px; right:24px;
+    bottom:calc(24px + var(--safe-bot));
+    padding:13px 18px; font-size:8px;
+  }
+
+  /* MODAL */
+  .modal-box { padding:32px 24px; }
+}
+
+/* スマホ縦の極小サイズ */
+@media (max-width:380px) {
+  .hero-title { font-size:54px; }
+  .sh-title { font-size:36px; }
+  .contact-hl { font-size:44px; }
+  .nav-logo { font-size:15px; letter-spacing:.3em; }
+  .hero-btns { flex-direction:column; }
+  .btn-primary, .btn-ghost { width:100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-mark">GONGS</div>
+  <div class="loader-bar"></div>
+  <div class="loader-num">EST. 1994 — DESIGN WITH 6 SENSES</div>
+</div>
+
+<!-- CURSOR (PC only via CSS) -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">GONGS</a>
+  <ul class="nav-links">
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#profile">Profile</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+  <button class="burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#philosophy"><span style="color:var(--gold);font-family:'Cormorant Garamond';font-style:italic;font-size:14px">i.</span> Philosophy <span>—</span></a></li>
+    <li><a href="#works"><span style="color:var(--gold);font-family:'Cormorant Garamond';font-style:italic;font-size:14px">ii.</span> Works <span>—</span></a></li>
+    <li><a href="#profile"><span style="color:var(--gold);font-family:'Cormorant Garamond';font-style:italic;font-size:14px">iii.</span> Profile <span>—</span></a></li>
+    <li><a href="#instagram"><span style="color:var(--gold);font-family:'Cormorant Garamond';font-style:italic;font-size:14px">iv.</span> Instagram <span>—</span></a></li>
+    <li><a href="#shop"><span style="color:var(--gold);font-family:'Cormorant Garamond';font-style:italic;font-size:14px">v.</span> Shop <span>—</span></a></li>
+    <li><a href="#contact"><span style="color:var(--gold);font-family:'Cormorant Garamond';font-style:italic;font-size:14px">vi.</span> Contact <span>→</span></a></li>
+  </ul>
+  <div class="mobile-menu-foot">© 2026 GONGS Co., Ltd.</div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-corner-tl">N° 001 / EST. 1994</div>
+
+  <div class="hero-left fade-seq">
+    <div class="hero-vol">Yokohama / Tokyo / Shanghai</div>
+    <h1 class="hero-title">Design<br>with<br><em>6 senses.</em></h1>
+    <p class="hero-phi">
+      No Standard to Higher Standard.<br>
+      クライアントだけでなく、その空間を訪れる<br>すべての人の感性に応えるデザインを。
+    </p>
+    <div class="hero-btns">
+      <a href="#works" class="btn-primary"><span>View Works</span></a>
+      <a href="#contact" class="btn-ghost">Contact Us</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hc">
+      <img src="https://gongs.co.jp/_src/2701/l1000345.jpg" onerror="this.src='https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=80&auto=format&fit=crop'" alt="Japanese Garden Hakone — Pine">
+      <div class="hc-num">i.</div>
+      <div class="hc-tag">Hakone</div>
+    </div>
+    <div class="hc">
+      <img src="https://gongs.co.jp/_src/2702/l1000362.jpg" onerror="this.src='https://images.unsplash.com/photo-1480796927426-f609979314bd?w=900&q=80&auto=format&fit=crop'" alt="Japanese Garden — Moss Path">
+      <div class="hc-num">ii.</div>
+      <div class="hc-tag">Garden</div>
+    </div>
+    <div class="hc">
+      <img src="https://gongs.co.jp/_src/4295/azabu05.jpg" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=80&auto=format&fit=crop'" alt="Azabu — Entrance">
+      <div class="hc-num">iii.</div>
+      <div class="hc-tag">Azabu</div>
+    </div>
+    <div class="hc">
+      <img src="https://gongs.co.jp/_src/1396/mn03.jpg" onerror="this.src='https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1200&q=80&auto=format&fit=crop'" alt="MANUEL TOKYO">
+      <div class="hc-num">iv.</div>
+      <div class="hc-tag">Manuel</div>
+    </div>
+    <div class="hc">
+      <img src="https://gongs.co.jp/_src/2704/l1000386.jpg" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=80&auto=format&fit=crop'" alt="Autumn Path">
+      <div class="hc-num">v.</div>
+      <div class="hc-tag">Autumn</div>
+    </div>
+  </div>
+
+  <div class="hero-corner-br">— Yokohama, Japan —</div>
+
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="mq-item">Interior Design</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Architecture</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Japanese Garden</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Restaurant Design</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Renovation</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Store Design</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Yokohama / Tokyo / Shanghai</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Design with 6 Senses</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Interior Design</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Architecture</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Japanese Garden</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Restaurant Design</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Renovation</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Store Design</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Yokohama / Tokyo / Shanghai</span><span class="mq-sep">◆</span>
+    <span class="mq-item">Design with 6 Senses</span><span class="mq-sep">◆</span>
+  </div>
+</div>
+
+<!-- ═══ PHILOSOPHY ═══ -->
+<section id="philosophy" class="phi-section">
+  <div class="phi-left reveal">
+    <div class="section-eyebrow">Chapter 01 — Philosophy</div>
+    <blockquote class="phi-quote">
+      "Design with<br><span>6 senses<span class="accent-mark">.</span></span>"
+    </blockquote>
+    <div class="phi-body">
+      <p>No Standard to Higher Standard.<br>クライアントだけでなく、その空間を訪れる顧客が満足できるデザインを提供する。</p>
+      <p>視覚・聴覚・触覚・嗅覚・味覚に加え、空間が持つ「気配」という第六感。<br>伝統の再生から新たな知見を空間デザインに落とし込む温故知新の心が、人の感動を呼ぶ。</p>
+    </div>
+  </div>
+  <div class="phi-right">
+    <div class="phi-stat reveal">
+      <div class="stat-n">30<sup>+</sup></div>
+      <div class="stat-l">Years of Experience</div>
+      <div class="stat-d">— Founded 1994, established 2018</div>
+    </div>
+    <div class="phi-stat reveal">
+      <div class="stat-n">8</div>
+      <div class="stat-l">Featured Works</div>
+      <div class="stat-d">— Selected from over 100 projects</div>
+    </div>
+    <div class="phi-stat reveal">
+      <div class="stat-n">3</div>
+      <div class="stat-l">Countries</div>
+      <div class="stat-d">— Japan / China / Worldwide clients</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WORKS ═══ -->
+<section id="works" class="works-section">
+  <div class="section-head reveal">
+    <div class="sh-left">
+      <div class="section-eyebrow">Chapter 02 — Selected Works</div>
+      <h2 class="sh-title">Portfolio<br><em>2018 — 2026</em></h2>
+    </div>
+    <div class="sh-meta">
+      <div class="sh-num">08</div>
+      <div class="sh-sub">— Featured Projects —</div>
+    </div>
+  </div>
+
+  <div class="works-grid">
+    <div class="wi">
+      <img src="https://gongs.co.jp/_src/2708/s__24567828-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1400&q=80&auto=format&fit=crop'" alt="Japanese Garden Hakone">
+      <div class="wi-num">i.</div>
+      <div class="wi-strip">
+        <div>
+          <div class="wi-name">Japanese Garden</div>
+          <div class="wi-name-sub">Case 01 — Hakone</div>
+        </div>
+        <div class="wi-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="wi">
+      <img src="https://gongs.co.jp/_src/4305/s__9068801.jpg" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80&auto=format&fit=crop'" alt="Apartment Renovation Meguro">
+      <div class="wi-num">ii.</div>
+      <div class="wi-strip">
+        <div>
+          <div class="wi-name">Apartment Renovation</div>
+          <div class="wi-name-sub">Case 02 — Meguro</div>
+        </div>
+        <div class="wi-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="wi">
+      <img src="https://gongs.co.jp/_src/4299/azabu01.jpg" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80&auto=format&fit=crop'" alt="Japanese Restaurant Azabu">
+      <div class="wi-num">iii.</div>
+      <div class="wi-strip">
+        <div>
+          <div class="wi-name">Restaurant</div>
+          <div class="wi-name-sub">Case 03 — Azabu</div>
+        </div>
+        <div class="wi-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="wi">
+      <img src="https://gongs.co.jp/_src/2675/mn02.jpg" onerror="this.src='https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1100&q=80&auto=format&fit=crop'" alt="MANUEL TOKYO">
+      <div class="wi-num">iv.</div>
+      <div class="wi-strip">
+        <div>
+          <div class="wi-name">MANUEL TOKYO</div>
+          <div class="wi-name-sub">Case 04 — Tokyo</div>
+        </div>
+        <div class="wi-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="wi">
+      <img src="https://gongs.co.jp/_src/1406/aka01.jpg" onerror="this.src='https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=1100&q=80&auto=format&fit=crop'" alt="Bar Akasaka">
+      <div class="wi-num">v.</div>
+      <div class="wi-strip">
+        <div>
+          <div class="wi-name">Bar</div>
+          <div class="wi-name-sub">Case 05 — Akasaka</div>
+        </div>
+        <div class="wi-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="wi">
+      <img src="https://gongs.co.jp/_src/1414/shang01.jpg" onerror="this.src='https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=1100&q=80&auto=format&fit=crop'" alt="Restaurant Shanghai">
+      <div class="wi-num">vi.</div>
+      <div class="wi-strip">
+        <div>
+          <div class="wi-name">Japanese Restaurant</div>
+          <div class="wi-name-sub">Case 06 — Shanghai</div>
+        </div>
+        <div class="wi-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="wi">
+      <img src="https://gongs.co.jp/_src/1428/shibu04.jpg" onerror="this.src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format&fit=crop'" alt="Restaurant Shibuya">
+      <div class="wi-num">vii.</div>
+      <div class="wi-strip">
+        <div>
+          <div class="wi-name">Japanese Restaurant</div>
+          <div class="wi-name-sub">Case 07 — Shibuya</div>
+        </div>
+        <div class="wi-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="wi">
+      <img src="https://gongs.co.jp/_src/2071/img-0271.jpg" onerror="this.src='https://images.unsplash.com/photo-1525268771113-32d9e9021a97?w=1100&q=80&auto=format&fit=crop'" alt="28 bal Kamakura">
+      <div class="wi-num">viii.</div>
+      <div class="wi-strip">
+        <div>
+          <div class="wi-name">28 bal</div>
+          <div class="wi-name-sub">Case 08 — Kamakura</div>
+        </div>
+        <div class="wi-arrow">→</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="works-view-all reveal">
+    <div class="wva-text">
+      庭園・住宅リノベーション・レストラン・バー — ジャンルを横断する空間表現。<br>
+      30年の経験から導き出された素材と光の使い方を、それぞれの場所に最適化して落とし込む。
+    </div>
+    <a href="#" class="btn-ghost">View All Projects →</a>
+  </div>
+</section>
+
+<!-- ═══ PROFILE ═══ -->
+<section id="profile" class="profile-section">
+  <div class="profile-left">
+    <img src="https://gongs.co.jp/_src/2703/l1000365.jpg" onerror="this.src='https://images.unsplash.com/photo-1480796927426-f609979314bd?w=1200&q=80&auto=format&fit=crop'" alt="GONG YU / 宮裕 — Designer">
+    <div class="profile-left-overlay"></div>
+    <div class="profile-left-frame"></div>
+    <div class="profile-left-quote">
+      絶対にあきらめない。<br>
+      その先にしか、本物の美はない。
+    </div>
+  </div>
+  <div class="profile-right reveal">
+    <div class="section-eyebrow">Chapter 03 — Profile</div>
+    <h2 class="profile-name">GONG YU</h2>
+    <div class="profile-name-ja">宮 裕 / C.E.O. / Designer</div>
+    <div class="profile-body">
+      <p>1967年 横浜市生まれ。セツ・モードセミナー、横浜アートスクールで学ぶ傍ら、経師屋で厳しい修行を積み、造形創作活動を開始。</p>
+      <p>1994年、インテリア・デザイン会社を設立。斬新なアイデアと施工方法でデザインリノベーションのパイオニア的存在となる。横浜にクラブをオープンし、自らデザイン・施工するスタイルを確立。住宅・レストラン・クラブ等、多数の店舗デザインを手がける。</p>
+      <p>2009年 海外プロジェクトを開始。「絶対にあきらめない」を信条に数々の苦難を越え、世界的起業家・海外富裕層からの信頼を得る。伝統の再生から新たな知見を空間デザインに落とし込む温故知新の姿勢で、世界に挑み続ける。</p>
+    </div>
+    <div class="profile-tags">
+      <span class="p-tag">Interior Design</span>
+      <span class="p-tag">Architecture</span>
+      <span class="p-tag">Landscape</span>
+      <span class="p-tag">Restaurant</span>
+      <span class="p-tag">Renovation</span>
+      <span class="p-tag">Hospitality</span>
+      <span class="p-tag">Japan / Shanghai</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EDITORIAL ═══ -->
+<section class="editorial">
+  <div class="ed-side">N° 003 / Editorial</div>
+  <div class="ed-main reveal">
+    <div class="ed-eyebrow">— A Note from the Studio —</div>
+    <h2 class="ed-title">空間は、<em>沈黙の言語</em>である。</h2>
+    <p class="ed-body">
+      私たちが手がけるのは、ただの「建築」や「内装」ではない。<br>
+      そこに足を踏み入れた人が呼吸する空気、<br>触れる素材の温度、聴こえてくる残響、<br>その全てが調和した「体験」である。
+    </p>
+    <div class="ed-pullquote">
+      "Creation from No Standard to Higher Standard."
+    </div>
+    <p class="ed-body">
+      日本庭園の苔から、上海の和食店の木の質感まで。<br>
+      文化と地域を越えても変わらぬのは、空間が人の記憶に残るかという基準。<br>
+      GONGSは、その基準を一段階高い場所に置き続けている。
+    </p>
+  </div>
+  <div class="ed-side right">2026 / Spring</div>
+</section>
+
+<!-- ═══ INSTAGRAM ═══ -->
+<section id="instagram" class="insta-section">
+  <div class="insta-header reveal">
+    <div class="sh-left">
+      <div class="section-eyebrow">Chapter 04 — Social</div>
+      <h2 class="sh-title">Instagram</h2>
+    </div>
+    <div class="insta-meta">
+      <div class="insta-at">@gongs_design</div>
+      <div class="insta-desc">Latest projects, materials & behind the scenes — updated daily.</div>
+      <a href="https://instagram.com" target="_blank" class="insta-follow-btn">Follow on Instagram →</a>
+    </div>
+  </div>
+
+  <div class="insta-grid">
+    <div class="ig-post">
+      <img src="https://gongs.co.jp/_src/2705/l1000371.jpg" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80&auto=format&fit=crop'" alt="">
+      <div class="ig-overlay"><div class="ig-heart">♡</div><div class="ig-likes">2.4K</div></div>
+    </div>
+    <div class="ig-post">
+      <img src="https://gongs.co.jp/_src/4293/azabu04.jpg" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80&auto=format&fit=crop'" alt="">
+      <div class="ig-overlay"><div class="ig-heart">♡</div><div class="ig-likes">1.8K</div></div>
+    </div>
+    <div class="ig-post">
+      <img src="https://gongs.co.jp/_src/1398/mn04.jpg" onerror="this.src='https://images.unsplash.com/photo-1554995207-c18c203602cb?w=600&q=80&auto=format&fit=crop'" alt="">
+      <div class="ig-overlay"><div class="ig-heart">♡</div><div class="ig-likes">3.1K</div></div>
+    </div>
+    <div class="ig-post">
+      <img src="https://gongs.co.jp/_src/2699/hakone_190725_190726_0006.jpg" onerror="this.src='https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80&auto=format&fit=crop'" alt="">
+      <div class="ig-overlay"><div class="ig-heart">♡</div><div class="ig-likes">4.2K</div></div>
+    </div>
+    <div class="ig-post">
+      <img src="https://gongs.co.jp/_src/1430/shibu03.jpg" onerror="this.src='https://images.unsplash.com/photo-1480796927426-f609979314bd?w=600&q=80&auto=format&fit=crop'" alt="">
+      <div class="ig-overlay"><div class="ig-heart">♡</div><div class="ig-likes">1.6K</div></div>
+    </div>
+    <div class="ig-post">
+      <img src="https://gongs.co.jp/_src/4297/azabu06.jpg" onerror="this.src='https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=600&q=80&auto=format&fit=crop'" alt="">
+      <div class="ig-overlay"><div class="ig-heart">♡</div><div class="ig-likes">2.0K</div></div>
+    </div>
+  </div>
+
+  <div class="insta-live">
+    <div class="live-dot"></div>
+    <div class="live-txt">Auto-Sync Active</div>
+    <div class="live-divider">/</div>
+    <div class="live-txt">Latest 6 posts updated every 24 hours</div>
+    <div class="live-txt-r">Last sync — 12 minutes ago</div>
+  </div>
+</section>
+
+<!-- ═══ SHOP ═══ -->
+<section id="shop" class="shop-section">
+  <div class="shop-header reveal">
+    <div class="sh-left">
+      <div class="section-eyebrow">Chapter 05 — Online Shop</div>
+      <h2 class="sh-title">Products<br><em>& Services</em></h2>
+    </div>
+    <div class="stripe-badge">
+      <div class="s-dot"></div>
+      Powered by Stripe
+    </div>
+  </div>
+
+  <div class="products-grid">
+    <div class="pc">
+      <div class="pc-tag-new">New</div>
+      <div class="pc-img" onclick="openModal('Moss Panel Art','苔を用いた壁面装飾パネル。日本庭園の素材を室内空間に落とし込んだGONGSオリジナルプロダクト。サイズオーダーも承ります。','Wall Art / Original','¥48,000','In Stock')">
+        <img src="https://gongs.co.jp/_src/2706/l1000379.jpg" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=80&auto=format&fit=crop'" alt="Moss Panel Art">
+        <div class="pc-add">
+          <button class="add-btn">View Details</button>
+        </div>
+      </div>
+      <div class="pc-info">
+        <div class="pc-cat">Wall Art / Original</div>
+        <div class="pc-name">Moss Panel Art</div>
+        <div class="pc-foot">
+          <div class="pc-price">¥48,000</div>
+          <div class="pc-stock">In Stock</div>
+        </div>
+      </div>
+      <button class="pc-mobile-btn" onclick="openModal('Moss Panel Art','苔を用いた壁面装飾パネル。日本庭園の素材を室内空間に落とし込んだGONGSオリジナルプロダクト。サイズオーダーも承ります。','Wall Art / Original','¥48,000','In Stock')">View Details →</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-img" onclick="openModal('Vintage Fixture Light','GONGSが施工案件で使用するヴィンテージ照明コレクション。空間デザインのエッセンスを自宅に。職人による1点1点の手作業仕上げ。','Lighting / Vintage','¥36,000','Limited — 3 left')">
+        <img src="https://gongs.co.jp/_src/4342/s__9068784.jpg" onerror="this.src='https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=900&q=80&auto=format&fit=crop'" alt="Vintage Fixture Light">
+        <div class="pc-add">
+          <button class="add-btn">View Details</button>
+        </div>
+      </div>
+      <div class="pc-info">
+        <div class="pc-cat">Lighting / Vintage</div>
+        <div class="pc-name">Vintage Fixture Light</div>
+        <div class="pc-foot">
+          <div class="pc-price">¥36,000</div>
+          <div class="pc-stock limited">3 left</div>
+        </div>
+      </div>
+      <button class="pc-mobile-btn" onclick="openModal('Vintage Fixture Light','GONGSが施工案件で使用するヴィンテージ照明コレクション。空間デザインのエッセンスを自宅に。職人による1点1点の手作業仕上げ。','Lighting / Vintage','¥36,000','Limited — 3 left')">View Details →</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-tag-new">New</div>
+      <div class="pc-img" onclick="openModal('Design Consultation','宮 裕によるオンライン空間デザインコンサルテーション（60分）。インテリア相談・設計提案・素材選定までトータル対応。海外からの参加も歓迎。','Service / Online','¥30,000','Online / 60min')">
+        <img src="https://gongs.co.jp/_src/4297/azabu06.jpg" onerror="this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80&auto=format&fit=crop'" alt="Design Consultation">
+        <div class="pc-add">
+          <button class="add-btn">Book Now</button>
+        </div>
+      </div>
+      <div class="pc-info">
+        <div class="pc-cat">Service / Online</div>
+        <div class="pc-name">Design Consultation</div>
+        <div class="pc-foot">
+          <div class="pc-price">¥30,000</div>
+          <div class="pc-stock">60 min</div>
+        </div>
+      </div>
+      <button class="pc-mobile-btn" onclick="openModal('Design Consultation','宮 裕によるオンライン空間デザインコンサルテーション（60分）。インテリア相談・設計提案・素材選定までトータル対応。海外からの参加も歓迎。','Service / Online','¥30,000','Online / 60min')">Book Now →</button>
+    </div>
+  </div>
+
+  <div class="shop-trust">
+    <div class="trust-item"><span class="trust-icon">⌘</span> Stripe Secured Payment</div>
+    <div class="trust-item"><span class="trust-icon">⊕</span> Free Shipping in Japan</div>
+    <div class="trust-item"><span class="trust-icon">◇</span> International Delivery Available</div>
+    <div class="trust-item"><span class="trust-icon">○</span> Made by Master Artisans</div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="contact-section">
+  <div class="contact-bg-word">GONGS</div>
+  <div class="contact-inner reveal">
+    <div class="section-eyebrow contact-eyebrow">Chapter 06 — Contact</div>
+    <h2 class="contact-hl">Let's<br>build<br><em>together.</em></h2>
+    <div class="contact-links">
+      <a href="mailto:gongs.miya@gmail.com" class="contact-link">
+        <span class="contact-link-text">gongs.miya@gmail.com</span>
+        <span class="contact-link-meta">Email <span class="contact-arrow">→</span></span>
+      </a>
+      <a href="tel:07045332028" class="contact-link">
+        <span class="contact-link-text">070-4533-2028</span>
+        <span class="contact-link-meta">Tel & Fax <span class="contact-arrow">→</span></span>
+      </a>
+      <a href="#instagram" class="contact-link">
+        <span class="contact-link-text">@gongs_design</span>
+        <span class="contact-link-meta">Instagram <span class="contact-arrow">→</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPANY ═══ -->
+<section class="company-section reveal">
+  <div class="section-eyebrow">Chapter 07 — Company</div>
+  <h2 class="sh-title">GONGS Co., Ltd.</h2>
+  <div class="company-table">
+    <div class="ct-row"><div class="ct-key">Company</div><div class="ct-val">GONGS Co., Ltd.</div></div>
+    <div class="ct-row"><div class="ct-key">Established</div><div class="ct-val">2018 / 12 / 07</div></div>
+    <div class="ct-row"><div class="ct-key">CEO</div><div class="ct-val">Yutaka Miya / 宮 裕</div></div>
+    <div class="ct-row"><div class="ct-key">Capital</div><div class="ct-val">9,000,000 JPY</div></div>
+    <div class="ct-row"><div class="ct-key">Head Office</div><div class="ct-val">〒240-0105　4309 Akiya, Yokosuka, Kanagawa</div></div>
+    <div class="ct-row"><div class="ct-key">Email</div><div class="ct-val">gongs.miya@gmail.com</div></div>
+    <div class="ct-row"><div class="ct-key">Tel & Fax</div><div class="ct-val">070-4533-2028</div></div>
+    <div class="ct-row"><div class="ct-key">Web</div><div class="ct-val">gongs.co.jp</div></div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">GONGS</div>
+      <div class="footer-tagline">Design with 6 senses.</div>
+      <div class="footer-addr">
+        〒240-0105<br>
+        4309 Akiya, Yokosuka,<br>Kanagawa, Japan
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Studio</h4>
+      <ul>
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#works">Works</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#shop">Products</a></li>
+        <li><a href="#shop">Services</a></li>
+        <li><a href="#contact">Custom Order</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+        <li><a href="mailto:gongs.miya@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <div class="footer-copy">© 2026 GONGS Co., Ltd. All Rights Reserved.</div>
+    <div class="footer-credit">Designed & Built with care</div>
+  </div>
+</footer>
+
+<!-- ═══ MODAL ═══ -->
+<div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close-x" onclick="closeModal()" aria-label="Close">✕</button>
+    <div class="modal-eyebrow" id="m-cat">Product</div>
+    <h3 class="modal-title" id="m-title">—</h3>
+    <p class="modal-desc" id="m-desc">—</p>
+    <div class="modal-price" id="m-price">—</div>
+    <button class="modal-stripe-btn">⌘ Checkout with Stripe</button>
+    <button class="modal-cart-btn" onclick="addCart()">Add to Cart</button>
+    <div class="stripe-secure">
+      <span class="stripe-icon"></span>
+      Secured by Stripe — SSL Encrypted Payment
+    </div>
+  </div>
+</div>
+
+<!-- CART -->
+<button class="cart-float" id="cartBtn" aria-label="Shopping Cart">
+  Cart <div class="cart-badge" id="cartCount">0</div>
+</button>
+
+<script>
+/* ── LOADER ── */
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{ document.getElementById('loader').classList.add('done'); }, 1500);
+});
+
+/* ── CURSOR (PC only) ── */
+const isTouch = matchMedia('(hover: hover) and (pointer: fine)').matches === false;
+if (!isTouch) {
+  const cur = document.getElementById('cur');
+  const ring = document.getElementById('cur-ring');
+  let mx=0, my=0, rx=0, ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  (function loop(){
+    rx += (mx-rx)*.18; ry += (my-ry)*.18;
+    cur.style.left = mx+'px'; cur.style.top = my+'px';
+    ring.style.left = rx+'px'; ring.style.top = ry+'px';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a,button,.wi,.pc,.ig-post,.hc,.p-tag,.ct-row').forEach(el => {
+    el.addEventListener('mouseenter', ()=>ring.classList.add('hv'));
+    el.addEventListener('mouseleave', ()=>ring.classList.remove('hv'));
+  });
+}
+
+/* ── BURGER / MOBILE MENU ── */
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', ()=>{
+  burger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+document.querySelectorAll('.mobile-menu a').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    burger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll', ()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+/* ── SCROLL REVEAL ── */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+},{ threshold:.12, rootMargin:'0px 0px -80px 0px' });
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ── MODAL ── */
+let cart = 0;
+function openModal(title, desc, cat, price, stock){
+  document.getElementById('m-title').textContent = title;
+  document.getElementById('m-desc').textContent = desc;
+  document.getElementById('m-cat').textContent = cat;
+  document.getElementById('m-price').textContent = price;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function addCart(){
+  cart++;
+  const badge = document.getElementById('cartCount');
+  badge.textContent = cart;
+  badge.style.transform = 'scale(1.5)';
+  setTimeout(()=>badge.style.transform='scale(1)', 250);
+  closeModal();
+}
+
+/* ── MARQUEE PAUSE ── */
+const track = document.querySelector('.marquee-track');
+track.addEventListener('mouseenter',()=>track.style.animationPlayState='paused');
+track.addEventListener('mouseleave',()=>track.style.animationPlayState='running');
+
+/* ── HERO PARALLAX (PC only) ── */
+if (!isTouch) {
+  let parallaxRAF;
+  document.querySelector('.hero-right')?.addEventListener('mousemove', e=>{
+    cancelAnimationFrame(parallaxRAF);
+    parallaxRAF = requestAnimationFrame(()=>{
+      const cells = document.querySelectorAll('.hc img');
+      const cx = (e.clientX/window.innerWidth-.5)*8;
+      const cy = (e.clientY/window.innerHeight-.5)*6;
+      cells.forEach((img,i)=>{
+        const d = (i%2===0)?1:-.7;
+        img.style.transform = `translate(${cx*d*.5}px,${cy*d*.4}px) scale(1.04)`;
+      });
+    });
+  });
+}
+
+/* ── ESC TO CLOSE ── */
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeModal();
+});
+
+/* ── CART BUTTON ── */
+document.getElementById('cartBtn').addEventListener('click', ()=>{
+  if(cart===0) alert('カートは空です。商品をお選びください。');
+});
+</script>
+</body>
+</html>
